@@ -1,7 +1,7 @@
+
 import 'dart:developer';
 
 import 'package:amazon/constant/common_function.dart';
-import 'package:amazon/controller/provider/auth_provider/auth_provider.dart';
 import 'package:amazon/controller/services/auth_services/auth_services.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:country_picker/country_picker.dart';
@@ -371,7 +371,11 @@ class _AuthScreenState extends State<AuthScreen> {
             CommonFunctions.blankSpace(height * 0.02, 0),
             CommonAuthButton(
               title: "Continue",
-              onPressed: (){}, btnWidth: 0.88,),
+              onPressed: (){
+                log("Phone Number ${phoneController.text}");
+                AuthServices.receiveOTP(context: context, mobileNumber: phoneController.text);
+                log("Phone Number ${phoneController.text}");
+              }, btnWidth: 0.88,),
             CommonFunctions.blankSpace(height * 0.02, 0),
             RichText(text: TextSpan(children: [
               TextSpan(text: 'By Continuing you agree to  Amazon\'s ', style: textTheme.labelMedium),
@@ -404,7 +408,7 @@ class CommonAuthButton extends StatelessWidget {
         style: ButtonStyle(
             minimumSize: MaterialStatePropertyAll(Size(width * btnWidth, height * 0.06)),
             backgroundColor: MaterialStatePropertyAll(amber)),
-        onPressed: (){}, child: const Text("Continue"));
+        onPressed: (){onPressed();}, child: const Text("Continue"));
   }
 }
 

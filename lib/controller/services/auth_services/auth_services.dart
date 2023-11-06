@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:amazon/controller/provider/auth_provider/auth_provider.dart';
 import 'package:amazon/view/auth_screen/otp_screen.dart';
