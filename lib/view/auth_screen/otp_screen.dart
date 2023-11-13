@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:amazon/constant/common_function.dart';
+import 'package:amazon/controller/services/auth_services/auth_services.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
@@ -48,7 +51,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 CommonFunctions.blankSpace(height * 0.02, 0),
                 TextField(
                   controller: otpController,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.number,
                   decoration:InputDecoration(
                       hintText: 'Enter OTP',
                       hintStyle: textTheme.bodySmall,
@@ -73,12 +76,19 @@ class _OTPScreenState extends State<OTPScreen> {
 
                 ),
                 CommonFunctions.blankSpace(height * 0.02, 0),
-                CommonAuthButton(title: "Continue", onPressed: (){},btnWidth: 0.94,),
+                CommonAuthButton(title: "Continue", onPressed: (){
+                  AuthServices.verifyOTP(context: context, otp: otpController.text);
+                  log("otp  Passed With=======:  ${otpController.text}");
+                  print("otp  Passed With=======:  ${otpController.text}");
+
+                },btnWidth: 0.94,),
                 CommonFunctions.blankSpace(height * 0.02, 0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(onPressed: (){}, child: Text("Resend OTP",style: textTheme.bodyMedium!.copyWith(color: blue,fontSize: 20),)),
+                    TextButton(onPressed: (){
+
+                    }, child: Text("Resend OTP",style: textTheme.bodyMedium!.copyWith(color: blue,fontSize: 20),)),
                   ],
                 ),
                  const BottomAuthScreenWidget(),

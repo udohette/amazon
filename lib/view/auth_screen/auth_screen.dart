@@ -341,7 +341,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   height: height * 0.06,
                   width: width * 0.64,
                   child: TextFormField(
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.phone,
                     cursorColor: black,
                     controller: phoneController,
                     decoration: InputDecoration(
