@@ -10,9 +10,6 @@ import 'package:flutter/foundation.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view/auth_screen/auth_screen.dart';
-import '../../../view/home/home_screen.dart';
-
 class AuthServices{
 
   static bool checkAuthentication(){
@@ -29,14 +26,14 @@ class AuthServices{
     }
   }
 
-  static checkAuthenticationStatus({required BuildContext context}){
-    bool userIsAuthenticated = AuthServices.checkAuthentication();
-    userIsAuthenticated ? Navigator.pushAndRemoveUntil(context, PageTransition(child: const HomeScreen(), type: PageTransitionType.leftToRight), (route) => false):
-    Navigator.pushAndRemoveUntil(context, PageTransition(child: const AuthScreen(), type: PageTransitionType.leftToRight), (route) => false);
-    log("checkAuthenticationStatus Method Called+++++++");
-    print("checkAuthenticationStatus Method Called+++++++");
-    log("Navigating to Home Screen");
-  }
+  // static checkAuthenticationStatus({required BuildContext context}){
+  //   bool userIsAuthenticated = AuthServices.checkAuthentication();
+  //   userIsAuthenticated ? Navigator.pushAndRemoveUntil(context, PageTransition(child: const HomeScreen(), type: PageTransitionType.leftToRight), (route) => false):
+  //   Navigator.pushAndRemoveUntil(context, PageTransition(child: const AuthScreen(), type: PageTransitionType.leftToRight), (route) => false);
+  //   log("checkAuthenticationStatus Method Called+++++++");
+  //   print("checkAuthenticationStatus Method Called+++++++");
+  //   log("Navigating to Home Screen");
+  // }
 
   static receiveOTP({required BuildContext context, required String mobileNumber})async{
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -83,8 +80,8 @@ class AuthServices{
       await auth.signInWithCredential(credential);
       log("otp  Passed With=======:  $otp");
       print("otp  Passed With=======:  $otp");
-      checkAuthenticationStatus(context: context);
-      //Navigator.push(context, PageTransition(child:  SignInLogic(), type: PageTransitionType.rightToLeft));
+      // checkAuthenticationStatus(context: context);
+      Navigator.push(context, PageTransition(child:  SignInLogic(), type: PageTransitionType.rightToLeft));
     }catch(e){
       print("Catch Block: $e");
 
