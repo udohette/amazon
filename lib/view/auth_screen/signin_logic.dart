@@ -5,7 +5,8 @@ import 'package:amazon/view/auth_screen/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../home/home_screen.dart';
+import '../user/home/home_screen.dart';
+
 
 class SignInLogic extends StatefulWidget {
   const SignInLogic({super.key});
@@ -20,9 +21,8 @@ class _SignInLogicState extends State<SignInLogic> {
     bool userIsAuthenticated = AuthServices.checkAuthentication();
     userIsAuthenticated ? Navigator.pushAndRemoveUntil(context, PageTransition(child: const HomeScreen(), type: PageTransitionType.leftToRight), (route) => false):
     Navigator.pushAndRemoveUntil(context, PageTransition(child: const AuthScreen(), type: PageTransitionType.leftToRight), (route) => false);
-    log("checkAuthenticationStatus Method Called+++++++");
-    print("checkAuthenticationStatus Method Called+++++++");
-    log("Navigating to Home Screen");
+    log("checkAuthentication Method Called+++++++");
+
   }
 
   @override
@@ -35,7 +35,7 @@ class _SignInLogicState extends State<SignInLogic> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Image(image: AssetImage('assests/images/amazon_splash_screen.png'), fit: BoxFit.fill),
     );
   }

@@ -17,11 +17,14 @@ class AuthServices{
     User? user = auth.currentUser;
     if(user != null){
       log("User is Authenticated Successfully*************");
-      log("User is Authenticated Successfully************");
+      print("User UID ${FirebaseAuth.instance.currentUser?.uid}");
+      log("Navigating to Home Screen ====  User != null ");
       return true;
     }else{
-      log("User Authentication Failed----------------------------------------------");
+      log("User Authentication Failed >  User = Null or Logged Out----------------------------------------------");
+      print("User UID ${FirebaseAuth.instance.currentUser?.uid}");
       log("User  Authentication Failed ---------------------------------------------");
+      log("Navigating to AuthScreen Screen");
       return false;
     }
   }
@@ -40,12 +43,22 @@ class AuthServices{
     try{
       await auth.verifyPhoneNumber(
         phoneNumber: mobileNumber,
-          verificationCompleted: (PhoneAuthCredential credentials){
-            print("Credentials Passed:  $credentials");
+          verificationCompleted: (PhoneAuthCredential credentials)async{
+            print("Auto Credentials Passed:  $credentials");
+            // ANDROID ONLY!
+
+            // Sign the user in (or link) with the auto-generated credential
+            await auth.signInWithCredential(credentials);
 
           },
           verificationFailed: (FirebaseAuthException exception){
+            if (exception.code == 'invalid-phone-number') {
+              print('The provided phone number is not valid.');
+            }
             print("Credentials Failed: $exception");
+            log("Phone Verification Failed ${exception.credential}");
+            log("Phone Verification Failed2 ${exception.phoneNumber}");
+            log("Phone Verification Failed with Message ${exception.message}");
 
           },
           codeSent: (String verificationID, int? resendToken){
@@ -60,6 +73,7 @@ class AuthServices{
           print("verificationID Passed:  $verificationID");
 
           },
+          timeout: const Duration(seconds: 60),
           codeAutoRetrievalTimeout: (String verificationID){
 
           },
