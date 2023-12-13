@@ -13,6 +13,36 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  CarouselController todaysDealController = CarouselController();
+  dealsl(int index, String offerType){
+     switch(offerType){
+       case 'Headphone':
+         switch(index){
+           case 0:
+             return "Bose";
+           case 1:
+             return "BoAt";
+           case 2:
+             return "Sony";
+           case 3:
+             return "OnePlus";
+         }
+         break;
+       case 'clothing':
+         switch(index){
+           case 0:
+             return "Kurtas, Sarees & More";
+           case 1:
+             return "Tops, dresses & More";
+           case 2:
+             return "T-Shrit, jeans & More";
+           case 3:
+             return "view all";
+         }
+
+     }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -28,14 +58,154 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               HomeScreenAddressBar(height: height, width: width),
               CommonFunctions.divider(),
-              HomeScreenCategoriesList(height: height, width: width, textTheme: textTheme),
+              HomeScreenCategoriesList(),
               CommonFunctions.blankSpace(height  * 0.01, 0),
             CommonFunctions.divider(),
-              HomeScreenBanner(height: height)
-            ],
+              HomeScreenBanner(height: height),
+              todaysDealHomeScreenWidget(todaysDealController: todaysDealController),
+              CommonFunctions.divider(),
+             // CommonFunctions.blankSpace(height * 0.01, 0),
+              otherOfferGridWidget(title: "Latest Launches in Headphones", textBtName: 'Explore More', productPicsNameList: headphonesDeals),
+        ],
           ),
+        )));
+  }
 
-        )),
+  Container otherOfferGridWidget({required String title, required String textBtName, required List<String> productPicsNameList}) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+              width: width,
+              padding: EdgeInsets.symmetric(horizontal: width * 0.03, vertical: height * 0.01),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w600, color: Colors.black54),),
+                  GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 10,
+                      ),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index){
+                        return InkWell(
+                          onTap: (){
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: AssetImage('assests/images/offersNsponcered/${productPicsNameList[index]}'), fit: BoxFit. cover, ),),
+                                ),
+                              ),
+                              Text(dealsl(index, title),style: textTheme.bodyMedium,)
+                            ],
+                          ),
+                        );
+
+                      }),
+                  TextButton(onPressed: (){}, child: Text(textBtName, style: textTheme.bodyMedium?.copyWith(color: Colors.green), ))
+                ],
+              ),
+            );
+  }
+}
+
+class todaysDealHomeScreenWidget extends StatelessWidget {
+  const todaysDealHomeScreenWidget({
+    super.key,
+    required this.todaysDealController,
+  });
+
+  final CarouselController todaysDealController;
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final textTheme = Theme.of(context).textTheme;
+    return SizedBox(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width * 0.03, vertical: height * 0.01),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+           Text("50%-80% off | Latest deals.", style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w600, color: Colors.black54),),
+        CarouselSlider(
+          carouselController: todaysDealController,
+          options: CarouselOptions(
+              height: height * 0.2,
+              autoPlay: true,
+              viewportFraction: 1),
+          items: todaysDeals.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  //margin: EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                  ),
+                  child: Image(
+                    image: AssetImage('assests/images/todays_deals/$i'), fit: BoxFit.fitHeight, ),
+                );
+              },
+            );
+          }).toList(),
+        ),
+            CommonFunctions.blankSpace(height * 0.01, 0),
+            Row(children: [
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: red,
+                ),
+                child: Text('upto 62% off', style: textTheme.labelMedium!.copyWith(color: white),),
+              ),
+              CommonFunctions.blankSpace(0, width * 0.03),
+              Text('Deal of the Day',style: textTheme.labelMedium!.copyWith(color: red, fontWeight: FontWeight.bold),)
+            ],),
+            CommonFunctions.blankSpace(height * 0.01, 0),
+            Text("Top Deals on Titan, Fastrack, Casio & More", style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w600, color: Colors.black54),),
+            CommonFunctions.blankSpace(height * 0.01, 0),
+            GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 4,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 10,
+                ),
+                   shrinkWrap: true,
+                   itemBuilder: (context, index){
+                return InkWell(
+                  onTap: (){
+                    log(index.toString());
+                    todaysDealController.animateToPage(index);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: greyShade3),
+                      image: DecorationImage(
+                        image: AssetImage('assests/images/todays_deals/${todaysDeals[index]}'), fit: BoxFit. contain, ),),
+                  ),
+                );
+
+                   }),
+            TextButton(onPressed: (){}, child: Text('See all Deals', style: textTheme.bodyMedium?.copyWith(color: Colors.green), ))
+          ],),
+      ),
     );
   }
 }
@@ -51,6 +221,7 @@ class HomeScreenBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
+      carouselController: CarouselController(),
       options: CarouselOptions(
           height: height * 0.24,
       autoPlay: true,
@@ -75,18 +246,14 @@ class HomeScreenBanner extends StatelessWidget {
 }
 
 class HomeScreenCategoriesList extends StatelessWidget {
-  final double height;
-  final double width;
-  final TextTheme textTheme;
-  const HomeScreenCategoriesList({
+   HomeScreenCategoriesList({
     super.key,
-    required this.height,
-    required this.width,
-    required this.textTheme,
   });
-
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final textTheme = Theme.of(context).textTheme;
     return SizedBox(
       height: height * 0.09,
       width: width,
