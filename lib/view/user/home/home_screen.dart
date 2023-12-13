@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/constant/constants.dart';
 import 'package:amazon/utils/colors.dart';
+import 'package:amazon/view/user/user_persistent_nav_bar/user_bottome_nav_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -14,34 +15,30 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CarouselController todaysDealController = CarouselController();
-  dealsl(int index, String offerType){
-     switch(offerType){
-       case 'Headphone':
-         switch(index){
-           case 0:
-             return "Bose";
-           case 1:
-             return "BoAt";
-           case 2:
-             return "Sony";
-           case 3:
-             return "OnePlus";
-         }
-         break;
-       case 'clothing':
-         switch(index){
-           case 0:
-             return "Kurtas, Sarees & More";
-           case 1:
-             return "Tops, dresses & More";
-           case 2:
-             return "T-Shrit, jeans & More";
-           case 3:
-             return "view all";
-         }
-
-     }
+  headphoneDeals(int index) {
+    switch (index) {
+      case 0:
+        return "Bose";
+      case 1:
+        return "BoAt";
+      case 2:
+        return "Sony";
+      case 3:
+        return "OnePlus";
+    }
   }
+  clothingDeals(int index) {
+    switch (index) {
+      case 0:
+        return "Kurtars, Sarees & More";
+      case 1:
+        return "Top, Dress & More";
+      case 2:
+        return "T-Shrit, Jean & More";
+      case 3:
+        return "View All";
+    }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -60,18 +57,48 @@ class _HomeScreenState extends State<HomeScreen> {
               CommonFunctions.divider(),
               HomeScreenCategoriesList(),
               CommonFunctions.blankSpace(height  * 0.01, 0),
-            CommonFunctions.divider(),
+              CommonFunctions.divider(),
               HomeScreenBanner(height: height),
               todaysDealHomeScreenWidget(todaysDealController: todaysDealController),
               CommonFunctions.divider(),
              // CommonFunctions.blankSpace(height * 0.01, 0),
-              otherOfferGridWidget(title: "Latest Launches in Headphones", textBtName: 'Explore More', productPicsNameList: headphonesDeals),
+              otherOfferGridWidget(title: "Latest Launches in Headphones", textBtName: 'Explore More', productPicsNameList: headphonesDeals, offerFor:  'headphone'),
+              CommonFunctions.divider(),
+              Container(
+                height: height * 0.35,
+                width: width,
+                child: const Image(image: AssetImage('assests/images/offersNsponcered/insurance.png'), fit: BoxFit.fill),
+              ),
+              CommonFunctions.divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('Sponsored',style: textTheme.bodySmall?.copyWith(color: Colors.green),),
+                  Icon(Icons.info_outline_rounded, size: 15,)
+                ],
+              ),
+              otherOfferGridWidget(title: "Minimum 70% off | Top offers on clothing", textBtName: 'See al deals', productPicsNameList: clothingDealsList, offerFor:  'clothing'),
+              CommonFunctions.divider(),
+              Column(
+                children: [
+                  Text("Watch Sixer Only on miniTV",style: textTheme.displaySmall?.copyWith(color: Colors.black, fontWeight: FontWeight.w600,fontSize: 30),),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.03, vertical: height * 0.01),
+                    //height: height * 0.43,
+                    width: width,
+                    child: const Image(image: AssetImage('assests/images/offersNsponcered/sixer.png'), fit: BoxFit.fill),
+                  ),
+                ],
+              ),
         ],
           ),
-        )));
+        ),
+
+      ));
+
   }
 
-  Container otherOfferGridWidget({required String title, required String textBtName, required List<String> productPicsNameList}) {
+  Container otherOfferGridWidget({required String title, required String textBtName, required List<String> productPicsNameList, required String offerFor}) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     final textTheme = Theme.of(context).textTheme;
@@ -107,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       image: AssetImage('assests/images/offersNsponcered/${productPicsNameList[index]}'), fit: BoxFit. cover, ),),
                                 ),
                               ),
-                              Text(dealsl(index, title),style: textTheme.bodyMedium,)
+                              Text(offerFor == 'headphone'? headphoneDeals(index): clothingDeals(index),style: textTheme.bodyMedium,)
                             ],
                           ),
                         );

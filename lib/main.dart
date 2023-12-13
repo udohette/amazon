@@ -26,7 +26,7 @@ class Amazon extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: SignInLogic(),
 
       ),
     );
