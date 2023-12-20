@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:amazon/controller/services/auth_services/auth_services.dart';
 import 'package:amazon/view/auth_screen/auth_screen.dart';
+import 'package:amazon/view/user/user_persistent_nav_bar/user_bottome_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -19,7 +20,7 @@ class _SignInLogicState extends State<SignInLogic> {
 
   checkAuthentication(){
     bool userIsAuthenticated = AuthServices.checkAuthentication();
-    userIsAuthenticated ? Navigator.pushAndRemoveUntil(context, PageTransition(child: const HomeScreen(), type: PageTransitionType.leftToRight), (route) => false):
+    userIsAuthenticated ? Navigator.pushAndRemoveUntil(context, PageTransition(child: UserBottomNavBar(), type: PageTransitionType.leftToRight), (route) => false):
     Navigator.pushAndRemoveUntil(context, PageTransition(child: const AuthScreen(), type: PageTransitionType.leftToRight), (route) => false);
     log("checkAuthentication Method Called+++++++");
 

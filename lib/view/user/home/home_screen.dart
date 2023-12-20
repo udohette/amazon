@@ -147,11 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class todaysDealHomeScreenWidget extends StatelessWidget {
-  const todaysDealHomeScreenWidget({
-    super.key,
-    required this.todaysDealController,
-  });
+class todaysDealHomeScreenWidget extends StatelessWidget {const todaysDealHomeScreenWidget({super.key, required this.todaysDealController,});
 
   final CarouselController todaysDealController;
 

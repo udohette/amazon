@@ -71,6 +71,7 @@ flutter:
 
   assets:
      - assests/images/amazon_logo.png
+     - assests/images/amazon_black_logo.png
      - assests/images/amazon_splash_screen.png
      - assests/images/categories/
      - assests/images/carousel_slideshow/
