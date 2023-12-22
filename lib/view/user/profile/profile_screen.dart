@@ -41,21 +41,171 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 CommonFunctions.blankSpace(height * 0.01, 0),
                 YouGridBtn(width: width, textTheme: textTheme),
                 CommonFunctions.blankSpace(height * 0.02, 0),
-                Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: width * 0.04, vertical:  height * 0.01),
-                  child: Column(children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                      Text('Your Orders', style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: black)),
-                       Text('See All', style: textTheme.bodyLarge?.copyWith(color: blue),),
-                    ],)
-                  ],),
-                )
+                UserOrders(width: width, height: height, textTheme: textTheme),
+                CommonFunctions.blankSpace(height * 0.01, 0),
+                CommonFunctions.divider(),
+                KeepShopping(width: width, height: height, textTheme: textTheme),
+                CommonFunctions.blankSpace(height * 0.01, 0),
+                CommonFunctions.divider(),
+                BuyAgain(width: width, height: height, textTheme: textTheme)
               ],
             ),
           ),
         )),
+    );
+  }
+}
+
+class KeepShopping extends StatelessWidget {
+  const KeepShopping({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.textTheme,
+  });
+
+  final double width;
+  final double height;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: width * 0.04, vertical:  height * 0.01),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Keep Shopping For', style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: black)),
+              TextButton(onPressed: (){}, child: Text('Edit', style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: blue)),),
+              Text('|', style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: grey)),
+              TextButton(onPressed: (){}, child: Text('Browsing History', style: textTheme.headlineSmall?.copyWith(color: blue),),)
+            ],),
+          CommonFunctions.blankSpace(height * 0.01, 0),
+      GridView.builder(
+          itemCount: 5,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 0.9,
+            crossAxisCount: 3, crossAxisSpacing: 10, mainAxisSpacing: 10,),
+          itemBuilder: (context, index){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.03),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: greyShade3),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                Text('Product')
+              ],
+            );
+            }),
+        ],
+      ),
+    );
+  }
+}
+class BuyAgain extends StatelessWidget {
+  const BuyAgain({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.textTheme,
+  });
+
+  final double width;
+  final double height;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: width * 0.04, vertical:  height * 0.01),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Buy Again', style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: black)),
+            Text('See All', style: textTheme.headlineSmall?.copyWith(color: blue),),
+          ],),
+        CommonFunctions.blankSpace(height * 0.01, 0),
+        SizedBox(
+          height: height * 0.14,
+          child: ListView.builder(
+              itemCount: 5,
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              physics:  PageScrollPhysics(),
+              itemBuilder: (context, index){
+                return Container(
+                  width: height * 0.14,
+                  height: height * 0.14,
+                  margin: EdgeInsets.symmetric(horizontal:  width * 0.02),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: greyShade3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                );
+              }),
+        ),
+      ],),
+    );
+  }
+}
+
+
+class UserOrders extends StatelessWidget {
+  const UserOrders({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.textTheme,
+  });
+
+  final double width;
+  final double height;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:  EdgeInsets.symmetric(horizontal: width * 0.04, vertical:  height * 0.01),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+          Text('Your Orders', style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: black)),
+           Text('See All', style: textTheme.headlineSmall?.copyWith(color: blue),),
+        ],),
+        CommonFunctions.blankSpace(height * 0.01, 0),
+        SizedBox(
+          height: height * 0.17,
+          child: ListView.builder(
+              itemCount: 5,
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              physics:  PageScrollPhysics(),
+              itemBuilder: (context, index){
+                return Container(
+                  width: width * 0.4,
+                  height: height * 0.17,
+                  margin: EdgeInsets.symmetric(horizontal:  width * 0.02),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: greyShade3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                );
+              }),
+        ),
+      ],),
     );
   }
 }
@@ -84,6 +234,7 @@ class YouGridBtn extends StatelessWidget {
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: width * 0.03),
               decoration: BoxDecoration(
+                color: greyShade3,
                 border: Border.all(color: grey),
                 borderRadius: BorderRadius.circular(50)
 
