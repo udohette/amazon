@@ -78,29 +78,60 @@ class _CartScreenState extends State<CartScreen> {
                 CommonFunctions.blankSpace( height * 0.02, 0),
                 CommonFunctions.divider(),
                 CommonFunctions.blankSpace( height * 0.02, 0),
-                ListView.builder(scrollDirection: Axis.vertical, itemCount: 2,shrinkWrap: true, itemBuilder: (context, index){
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical, itemCount: 2,shrinkWrap: true, itemBuilder: (context, index){
                   return Container(
                     height: height * 0.3,
                     width: width,
                     margin: EdgeInsets.symmetric(vertical: height * 0.01),
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.02, vertical: height * 0.01),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: greyShade1
                     ),
                     child: Row(children: 
                     [Expanded(flex:4, 
-                      child: Column(children: [
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                       Image(image: AssetImage("assests/images/todays_deals/todaysDeal1.png"), fit: BoxFit.fitWidth,),
+                        CommonFunctions.blankSpace(height * 0.01, 0),
                         Container(
                           height:  height * 0.06,
                           width: width,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: greyShade3)
-                          ),)
+                          ),
+                          child: Row(children: [
+                            Expanded(flex:2, child: Container(decoration: BoxDecoration(border: Border(right: BorderSide(color: greyShade3))), child: Icon(Icons.remove),),),
+                            Expanded(flex: 3, child: Container(color: white, alignment: Alignment.center, child: Text("1"),)),
+                            Expanded(flex: 2, child: Container(decoration: BoxDecoration(border: Border(left: BorderSide(color: greyShade3))), child: Icon(Icons.add),))
+                          ],),
+                        ),
+
                     ],),
                     ),
-                      Expanded(flex: 6, child: Column())
+                      CommonFunctions.blankSpace( 0 , width * 0.02),
+                      Expanded(flex: 7, child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                        Text("Product Name", style: textTheme.headlineMedium),
+                        CommonFunctions.blankSpace( height * 0.01 , 0),
+                        Text(" N 46,999", style: textTheme.headlineSmall),
+                          CommonFunctions.blankSpace( height * 0.01 , 0),
+                          Text(" Eligible for free shipping", style: textTheme.headlineSmall!.copyWith(color: grey)),
+                          CommonFunctions.blankSpace( height * 0.01 , 0),
+                          Text(" In Stock", style: textTheme.headlineSmall!.copyWith(color: CupertinoColors.activeGreen)),
+                          CommonFunctions.blankSpace( height * 0.01 , 0),
+                          Row(
+                            mainAxisAlignment:MainAxisAlignment.spaceBetween ,
+                            children: [
+                            ElevatedButton(onPressed: (){}, style: ElevatedButton.styleFrom(backgroundColor: Colors.white, side: BorderSide(color: greyShade3)), child: Text('Delete', style: textTheme.headlineSmall,),),
+                            ElevatedButton(onPressed: (){}, style: ElevatedButton.styleFrom(backgroundColor: Colors.white, side: BorderSide(color: greyShade3)), child: Text('Save for later', style: textTheme.headlineSmall,),)
+                          ],)
+                      ],))
                     ],
                     ),
                   );
