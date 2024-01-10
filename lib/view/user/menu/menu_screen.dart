@@ -1,3 +1,4 @@
+import 'package:amazon/constant/common_function.dart';
 import 'package:amazon/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +32,43 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
         child: Column(children: [
           Container(
+            padding: EdgeInsets.all(5),
             height:  height * 0.1,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(10)),
               border: Border.all(color: greyShade3),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        height: height * 0.07,
+                        width: width * 0.4,
+                        decoration: BoxDecoration(
+                            color: Colors.amberAccent.shade100
+                        ),
+                      ),
+                    ),
+                    CommonFunctions.blankSpace(0, width * 0.02),
+
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        height: height * 0.07,
+                        width: width * 0.4,
+                        decoration: BoxDecoration(
+                            color: Colors.amber.shade100
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
             ),
           )
         ],),
