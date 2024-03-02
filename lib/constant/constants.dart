@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
+
 final picker = ImagePicker();
 const String keySecret = '<Razorpay Secret>';
 const String keyID = '<Razorpay Key ID>';

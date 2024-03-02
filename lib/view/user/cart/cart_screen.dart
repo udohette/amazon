@@ -91,7 +91,7 @@ class _CartScreenState extends State<CartScreen> {
                       color: greyShade1
                     ),
                     child: Row(children: 
-                    [Expanded(flex:4, 
+                    [Expanded(flex:4,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -114,7 +114,7 @@ class _CartScreenState extends State<CartScreen> {
                     ],),
                     ),
                       CommonFunctions.blankSpace( 0 , width * 0.02),
-                      Expanded(flex: 7, child: Column(
+                      Expanded(flex: 8, child: Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                         Text("Product Name", style: textTheme.headlineMedium),
